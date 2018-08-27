@@ -116,6 +116,34 @@
     // Disable submit button until all T&C are agreed to
     maybe_enable_submit();
     //$(":submit").attr('disabled', true);
+
+    $('.field-p_ssh_key-skey').on('change',function() {
+        // check to see if the pasted text by chance contains a full SSH authorized key,
+        // including a type and a comment. If so, parse it and set the comment and type
+        // fields instead
+        var value = $.trim($(this).val());
+        if(value.indexOf(' ') !== -1) {
+          var values=value.split(' ');
+          var type = values[0];
+          var key = values.length > 1 ? values[1] : '';
+          var comment = values.length > 2 ? values[2] : '';
+        }
+        else {
+          // no spaces, but we can determine the type on the base64 encoded key
+          if(value.indexOf('AAAAB3NzaC1kc3M') === 0) {
+            // ssh-dss => DSA
+          }
+          else if(value.indexOf('AAAAB3NzaC1yc2E') === 0) {
+            // ssh-rsa => RSA
+          }
+          else if(value.indexOf('AAAAC3NzaC1lZDI1NTE5') === 0) {
+            // ssh-ed25519
+          }
+          else if(value.indexOf('AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYA') === 0) {
+            // ecdsa-sha2-nistp256
+          }
+        }
+    });
   }
 <?php endif; ?>
   
@@ -381,6 +409,9 @@
               if ($coe_attribute_index == 0) {
                 $args['class'] .= ' focusFirst';
               }
+
+              // Add the attribute as a class type
+              $args['class'].= ' field-'.str_replace(':','_',$ea['attribute']).'-'.$ea['field'];
 
               $matchable = false;
               $matchableInfoId = "";

@@ -138,9 +138,11 @@ class CoEnrollmentAttributesController extends StandardController {
         $this->set('vv_coid', $coid);
         
         // Assemble the set of available attributes for the view to render
-        
+
         $this->set('vv_available_attributes', $this->CoEnrollmentAttribute->availableAttributes($coid));
-        
+
+        $attrs=$this->CoEnrollmentAttribute->availableAttributes($coid);
+
         // By specifying actions here we limit the number of queries for /index
         if($this->action == 'add' || $this->action == 'edit') {
           // And pull details of extended attributes so views can determine types

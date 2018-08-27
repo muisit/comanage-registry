@@ -233,7 +233,10 @@
       $("#address_required_fields_div").hide("fade");
       $("#login_div").hide("fade");
       $("#name_required_fields_div").hide("fade");
-      
+      $("#ssh_key_type_div").hide("fade");
+      $("#ssh_key_div").hide("fade");
+      $("#ssh_key_comment_div").hide("fade");
+
       // Blank the current required fields
       document.getElementById('CoEnrollmentAttributeRequiredFields').value = "";
     }
@@ -402,6 +405,7 @@
               <?php endforeach; ?>
             </select>
           </div>
+
           <div id="required_fields_div" style="display: none">
             <?php
             if($e) {

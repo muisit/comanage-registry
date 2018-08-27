@@ -421,7 +421,6 @@ class CoPetitionsController extends StandardController {
             'CoPetitionAttribute.co_enrollment_attribute_id'
           );
           $vAttrs = $this->CoPetition->CoPetitionAttribute->find("list", $vArgs);
-          
           $this->set('co_petition_attribute_values', $vAttrs);
           
           // For viewing a petition, we want the attributes defined at the time the
